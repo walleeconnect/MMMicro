@@ -22,6 +22,8 @@
     <ProjectReference Include="..\modules\Admin.Presentation\Admin.Presentation.csproj" />
     <ProjectReference Include="..\modules\Compliance.Presentation\Compliance.Presentation.csproj" />
     <ProjectReference Include="..\modules\DocumentUpload.Presentation\DocumentUpload.Presentation.csproj" />
+    <ProjectReference Include="..\modules\Notify.Presentation\Notify.Presentation.csproj" />
+    <ProjectReference Include="..\modules\Users.Presentation\Users.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using Admin.Presentation;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,8 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddApplicationPart(typeof(DocumentUpload.Presentation.ForDI).Assembly);
-builder.Services.AddControllers().AddApplicationPart(typeof(Appointment.Presentation.ForDI).Assembly);
+builder.Services.AddControllers().AddApplicationPart(typeof(Admin.Presentation.ForDI).Assembly);
 builder.Services.AddControllers().AddApplicationPart(typeof(Compliance.Presentation.ForDI).Assembly);
+builder.Services.AddControllers().AddApplicationPart(typeof(Notify.Presentation.ForDI).Assembly);
+builder.Services.AddControllers().AddApplicationPart(typeof(Users.Presentation.ForDI).Assembly);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
