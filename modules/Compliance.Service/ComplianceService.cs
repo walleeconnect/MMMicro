@@ -8,16 +8,17 @@ namespace Compliance.Service
 {
     public interface IComplianceService
     {
-        Task<string> AddCompliance(string cf);
+        Task<string> AddCompliance(ComplianceDTO compliance);
         Task<string> UpdateCompliance(string documentId);
         Task<string> UploadComplianceDocument(string query);
     }
     // DocumentService.cs
     public class ComplianceService : IComplianceService
     {
-        public Task<string> AddCompliance(string cf)
+        public Task<string> AddCompliance(ComplianceDTO compliance)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Compliance Added");
+            return Task.FromResult(Guid.NewGuid().ToString());
         }
 
         public Task<string> UpdateCompliance(string documentId)

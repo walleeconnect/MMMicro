@@ -9,20 +9,21 @@ namespace Compliance.Presentation
     [Route("api/[controller]")]
     public class ComplianceController : ControllerBase
     {
-        private readonly IComplianceService _documentService;
+        private readonly IComplianceService _complianceService;
 
-        public ComplianceController(IComplianceService documentService)
+        public ComplianceController(IComplianceService complianceService)
         {
-            _documentService = documentService;
+            _complianceService = complianceService;
         }
 
-        [HttpPost("upload")]
-        public async Task<IActionResult> CreateCompliance()
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateCompliance(ComplianceDTO compliance)
         {
-            return null;
+            string id = await _complianceService.AddCompliance(compliance);
+            return Ok(id);
         }
 
-        [HttpGet("{documentId}")]
+        [HttpGet]
         public async Task<IActionResult> UpdateCompliance(string documentId)
         {
             return null;
