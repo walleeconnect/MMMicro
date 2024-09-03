@@ -23,11 +23,6 @@ namespace Compliance.Presentation
             return Ok(id);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> UpdateCompliance(string documentId)
-        {
-            return null;
-        }
 
         [HttpGet]
         public async Task<IActionResult> GetCompliances()

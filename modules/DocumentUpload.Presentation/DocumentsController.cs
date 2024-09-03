@@ -29,6 +29,16 @@ namespace DocumentUpload.Presentation
             }
         }
 
+        //[HttpGet("{documentId}")]
+        //public async Task<IActionResult> GetDocument(string documentId)
+        //{
+        //    var documentStream = await _documentService.GetDocument(documentId);
+        //    if (documentStream == null)
+        //        return NotFound();
+
+        //    return File(documentStream, "application/octet-stream");
+        //}
+
         [HttpGet("{documentId}")]
         public async Task<IActionResult> GetDocument(string documentId)
         {
@@ -36,7 +46,15 @@ namespace DocumentUpload.Presentation
             if (documentStream == null)
                 return NotFound();
 
-            return File(documentStream, "application/octet-stream");
+            // Optional: Set the content type and headers based on the file type and metadata
+            var fileName = "document_" + documentId; // Customize based on your metadata
+            var contentType = "application/octet-stream"; // Customize based on your metadata
+
+            // Return a FileStreamResult to stream the file to the client
+            return new FileStreamResult(documentStream, contentType)
+            {
+                FileDownloadName = fileName
+            };
         }
 
         [HttpGet("search")]

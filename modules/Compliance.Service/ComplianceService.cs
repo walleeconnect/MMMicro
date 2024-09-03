@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Compliance.Contracts;
+using EventHandling.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,10 +17,19 @@ namespace Compliance.Service
     // DocumentService.cs
     public class ComplianceService : IComplianceService
     {
+        private IEventPublisher _eventPublisher;
+
+        public ComplianceService(IEventPublisher eventPublisher)
+        {
+            _eventPublisher = eventPublisher;
+        }
+
         public Task<string> AddCompliance(ComplianceDTO compliance)
         {
             Console.WriteLine("Compliance Added");
-            return Task.FromResult(Guid.NewGuid().ToString());
+            string id = Guid.NewGuid().ToString();
+            _eventPublisher.Publish(new ComplianceAddedEvent(id, 1, compliance.DueDate));
+            return Task.FromResult(id);
         }
 
         public Task<string> UpdateCompliance(string documentId)

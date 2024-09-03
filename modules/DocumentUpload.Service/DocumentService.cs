@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace DocumentUpload.Service
 {
+    public static class DI
+    {
+
+    }
     public interface IDocumentService
     {
         Task<string> StoreDocument(DocumentMetadata metadata, Stream fileStream);
