@@ -17,16 +17,21 @@ namespace DocumentUpload.Presentation
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadDocument([FromForm] DocumentMetadata metadata, IFormFile file)
+        public async Task<IActionResult> UploadDocument([FromForm] DocumentMetadata metadata)
         {
-            if (file == null || file.Length == 0)
-                return BadRequest("No file provided.");
-
-            using (var stream = file.OpenReadStream())
+            foreach (var file in metadata.formFiles)
             {
-                var documentId = await _documentService.StoreDocument(metadata, stream);
-                return Ok(new { DocumentId = documentId });
+                if (file == null || file.Length == 0)
+                    return BadRequest("No file provided.");
             }
+            List<string> documentIds= new List<string>();
+            foreach(var file in metadata.formFiles)
+            
+            {
+                documentIds.Add(await _documentService.StoreDocument(metadata, file));
+
+            }
+            return Ok(new { DocumentId = documentIds });
         }
 
         //[HttpGet("{documentId}")]
@@ -50,6 +55,24 @@ namespace DocumentUpload.Presentation
             var fileName = "document_" + documentId; // Customize based on your metadata
             var contentType = "application/octet-stream"; // Customize based on your metadata
 
+            // Return a FileStreamResult to stream the file to the client
+            return new FileStreamResult(documentStream, contentType)
+            {
+                FileDownloadName = fileName
+            };
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DownloadDocuments([FromQuery]List<string> documentIds)
+        {
+            var documentStream = await _documentService.DownloadDocuments(documentIds);
+            if (documentStream == null)
+                return NotFound();
+
+            // Optional: Set the content type and headers based on the file type and metadata
+            var fileName = "documents.zip"; // Customize based on your metadata
+            var contentType = "application/zip"; // Customize based on your metadata
             // Return a FileStreamResult to stream the file to the client
             return new FileStreamResult(documentStream, contentType)
             {

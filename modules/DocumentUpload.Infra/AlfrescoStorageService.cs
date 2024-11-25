@@ -1,4 +1,5 @@
 ﻿using DocumentUpload.Service;
+using Microsoft.AspNetCore.Http;
 
 namespace DocumentUpload.Infra
 {
@@ -31,6 +32,32 @@ namespace DocumentUpload.Infra
             // Handle search via Alfresco's own search capabilities or use Elasticsearch
             //return await _alfrescoClient.SearchDocuments(query);
             return null;
+        }
+
+        public Task<string> StoreDocument(DocumentMetadata metadata, IFormFile fileStream)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<MemoryStream> DownloadDocuments(List<string> documentIds)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Task<MemoryStream> DownloadDocuments(List<Tdhdocument> documentIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<FileStoredResponse> IDocumentStorageService.StoreDocument(DocumentMetadata metadata, IFormFile fileStream)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteDocument(string filePath)
+        {
+            throw new NotImplementedException();
         }
     }
 

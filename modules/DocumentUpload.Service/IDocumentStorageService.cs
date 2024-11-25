@@ -1,11 +1,15 @@
-﻿namespace DocumentUpload.Service
+﻿using Microsoft.AspNetCore.Http;
+
+namespace DocumentUpload.Service
 {
     // IDocumentStorageService.cs
     public interface IDocumentStorageService
     {
-        Task<string> StoreDocument(DocumentMetadata metadata, Stream fileStream);
+        Task<FileStoredResponse> StoreDocument(DocumentMetadata metadata, IFormFile fileStream);
         Task<Stream> GetDocument(string documentId);
         Task<IEnumerable<DocumentMetadata>> SearchDocuments(string query);
+        Task<MemoryStream> DownloadDocuments(List<Tdhdocument> documentIds);
+        Task<bool> DeleteDocument(string filePath);
     }
 
 }

@@ -23,14 +23,25 @@ namespace Compliance.Presentation
             return Ok(id);
         }
 
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadCompliance([FromForm]ComplianceDocumentDto compliance)
+        {
+            string id = await _complianceService.UploadComplianceDocument(compliance);
+            return Ok(id);
+        }
 
         [HttpGet]
-        public async Task<IActionResult> GetCompliances()
+        public async Task<IActionResult> GetComplianceDocuments()
         {
             return null;
         }
 
-     
+        [HttpGet]
+        public async Task<IActionResult> DownloadComplianceDocuments()
+        {
+            return null;
+        }
+
     }
 
 }
