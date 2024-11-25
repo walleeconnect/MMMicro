@@ -20,7 +20,7 @@ namespace DocumentUpload.Infra
 
         public AzureBlobStorageService(IConfiguration configuration)
         {
-            var connectionString = "DefaultEndpointsProtocol=https;AccountName=pocapplicationdocservice"; //configuration["AzureBlobStorage:ConnectionString"];
+            var connectionString = configuration["AzureBlobStorage:ConnectionString"];
             _containerName = configuration["AzureBlobStorage:ContainerName"] ?? "default-container";
 
             _blobServiceClient = new BlobServiceClient(connectionString);
